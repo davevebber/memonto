@@ -1,35 +1,26 @@
 {
-  "name": "memonto",
+  "name": "googlebooks-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
-    "start": "if-env SOME_ENV_VAR=some_val ANOTHER_ENV_VAR=another_val && npm run this || npm run that",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "cd server && npm start",
+    "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "heroku-postbuild": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/davevebber/memonto.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/davevebber/memonto/issues"
-  },
-  "homepage": "https://github.com/davevebber/memonto#readme",
   "dependencies": {
-    "@apollo/react-hooks": "^4.0.0",
-    "apollo-boost": "^0.4.9",
-    "apollo-server-express": "^2.24.0",
-    "concurrently": "^6.1.0",
-    "dotenv": "^9.0.2",
-    "faker": "^5.5.3",
-    "graphql": "^15.5.0",
-    "if-env": "^1.0.4",
-    "jsonwebtoken": "^8.5.1",
-    "jwt-decode": "^3.1.2",
-    "nodemon": "^2.0.7",
-    "react-apollo": "^3.1.5",
-    "react-router-dom": "^5.2.0"
+    "if-env": "^1.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
   }
 }
