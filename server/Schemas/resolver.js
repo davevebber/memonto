@@ -41,33 +41,33 @@ const resolvers = {
             return { token, user }; 
         }, 
 
-        saveNotebook: async(parent, args, {user}) => {
-            if (user){
-                const updatedUser = await User.findByIdAndUpdate(
-                    {_id: user.id}, 
-                    {$addToSet:{savedNotebook: args}}, 
-                    {new: true}
-                ); 
+        // saveNotebook: async(parent, args, {user}) => {
+        //     if (user){
+        //         const updatedUser = await User.findByIdAndUpdate(
+        //             {_id: user.id}, 
+        //             {$addToSet:{savedNotebook: args}}, 
+        //             {new: true}
+        //         ); 
 
-                return updatedUser; 
-            }
+        //         return updatedUser; 
+        //     }
 
-            throw new AuthenticationError('Please login'); 
-        }, 
+        //     throw new AuthenticationError('Please login'); 
+        // }, 
 
-        removeNotebook: async(parent, {notebookId}, {user}) => {
-            if(user){
-                const updatedUser = await User.findOneAndUpdate(
-                    {_id: user._id}, 
-                    {$pull: {savedNotebook: {notebookId: notebookId}}}, 
-                    {new: true}
-                ); 
+        // removeNotebook: async(parent, {notebookId}, {user}) => {
+        //     if(user){
+        //         const updatedUser = await User.findOneAndUpdate(
+        //             {_id: user._id}, 
+        //             {$pull: {savedNotebook: {notebookId: notebookId}}}, 
+        //             {new: true}
+        //         ); 
 
-                return updatedUser; 
-            }
+        //         return updatedUser; 
+        //     }
 
-            throw new AuthenticationError('Please login'); 
-        }
+        //     throw new AuthenticationError('Please login'); 
+        //}
     }
 }
 
