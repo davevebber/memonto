@@ -16,4 +16,5 @@ const noteSchema = new Schema({
   }
 })
 
+
 module.exports = noteSchema; 
