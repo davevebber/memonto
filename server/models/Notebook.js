@@ -1,29 +1,30 @@
-const { Schema } = require('mongoose'); 
+const { Schema, model } = require('mongoose');
 
 //import note schema 
-const noteSchema = require('./Note'); 
+const noteSchema = require('./Note');
 
 //create notebook schema
 const notebookSchema = new Schema({
     title: {
-        type: String, 
+        type: String,
         required: true
-    }, 
-//connect to note schema as an array of data 
-     savedNotes: [noteSchema]
-    }, 
-        {
-            toJson: {
-                virtuals: true
-            },
-        }
-  )
+    },
+    //connect to note schema as an array of data 
+    savedNotes: [noteSchema]
+},
+    {
+        toJson: {
+            virtuals: true
+        },
+    }
+)
 
 
 //show saved notes 
-notebookSchema.virtual('noteCount').get(function(){
-    return this.savedNotes.length; 
+notebookSchema.virtual('noteCount').get(function () {
+    return this.savedNotes.length;
 });
 
+const Notebook = model('Notebook', notebookSchema)
 
-module.exports = notebookSchema; 
+module.exports = Notebook;
