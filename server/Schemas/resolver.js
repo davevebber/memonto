@@ -67,7 +67,9 @@ const resolvers = {
         //     }
 
         //     throw new AuthenticationError('Please login'); 
-        //}
+        //}, 
+
+        //save and delete notes inside the notebooks 
     }
 }
 
