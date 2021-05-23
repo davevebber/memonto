@@ -40,36 +40,69 @@ const resolvers = {
             const token = signToken(user); 
             return { token, user }; 
         }, 
+        //add a new notebook 
+        newNotebook: async(parent, args, context) => {
+            if (context.user){
+                const notebook = await Notebook.create({...args}
+                )
+                await User.findByIdAndUpdate(
+                    {_id: context.user._id}, 
+                    {$addToSet:{savedNotebook: notebook._id}}, 
+                    {new: true}
+                )
 
-        // saveNotebook: async(parent, args, {user}) => {
-        //     if (user){
-        //         const updatedUser = await User.findByIdAndUpdate(
-        //             {_id: user.id}, 
-        //             {$addToSet:{savedNotebook: args}}, 
-        //             {new: true}
-        //         ); 
+                return notebook; 
+            }
 
-        //         return updatedUser; 
-        //     }
+            throw new AuthenticationError('Please login'); 
+        }, 
 
-        //     throw new AuthenticationError('Please login'); 
-        // }, 
+        //delete a notebook 
+        removeNotebook: async(parent, {notebookId}, context) => {
+            if (context.user){
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: context.user._id}, 
+                    {$pull:{savedNotebook: {notebookId: notebookId}}}, 
+                    {new: true}
+                )
 
-        // removeNotebook: async(parent, {notebookId}, {user}) => {
-        //     if(user){
-        //         const updatedUser = await User.findOneAndUpdate(
-        //             {_id: user._id}, 
-        //             {$pull: {savedNotebook: {notebookId: notebookId}}}, 
-        //             {new: true}
-        //         ); 
+                return updatedUser; 
+            }
 
-        //         return updatedUser; 
-        //     }
+            throw new AuthenticationError('Please login'); 
+        }, 
 
-        //     throw new AuthenticationError('Please login'); 
-        //}, 
+        //add a note into a notebook 
+        newNote: async (parent, args, context) => {
+            if (context.notebook){
+                const note = await Note.create({...args}
+                )
+                await Notebook.findByIdAndUpdate(
+                    {_id: context.notebook._id}, 
+                    {$addToSet:{savedNotes: note._id}}, 
+                    {new: true}
+                )
 
-        //save and delete notes inside the notebooks 
+                return note; 
+            }
+
+            throw new AuthenticationError('Please login'); 
+        }, 
+
+        //remove a note inside a notebook 
+        removeNote: async(parent, {notebookId}, context) => {
+            if (context.notebook){
+                const updatedNotebook = await User.findOneAndUpdate(
+                    {_id: context.notebook._id}, 
+                    {$pull:{savedNotes : {notebookId: notebookId}}}, 
+                    {new: true}
+                )
+
+                return updatedNotebook; 
+            }
+
+            throw new AuthenticationError('Please login'); 
+        }, 
     }
 }
 

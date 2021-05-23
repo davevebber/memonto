@@ -25,6 +25,6 @@ notebookSchema.virtual('noteCount').get(function () {
     return this.savedNotes.length;
 });
 
-const Notebook = model('Notebook', notebookSchema)
+// const Notebook = model('Notebook', notebookSchema)
 
-module.exports = Notebook;
+module.exports = notebookSchema;
