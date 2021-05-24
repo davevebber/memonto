@@ -1,20 +1,30 @@
 const { Schema, model } = require('mongoose');
 
-//import note schema 
-const noteSchema = require('./Note');
+// //import note schema 
+// const noteSchema = require('./Note');
 
 //create notebook schema
 const notebookSchema = new Schema({
+    username: {
+        type: String, 
+        required: true
+    }, 
+
     title: {
         type: String,
         required: true
     },
     //connect to note schema as an array of data 
-    savedNotes: [noteSchema]
+    savedNotes: [
+        {
+            type: Schema.Types.ObjectId, 
+            ref: 'Note'}
+    ]
 },
     {
         toJson: {
-            virtuals: true
+            virtuals: true,
+            getters: true
         },
     }
 )
