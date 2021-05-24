@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose'); 
+const { Schema, model } = require('mongoose'); 
 
 //create note schema to reference into user 
 const noteSchema = new Schema({
@@ -14,7 +14,14 @@ const noteSchema = new Schema({
       type: Date, 
       default: Date.now
   }
-})
+}, 
+{
+    toJson: {
+        getters: true
+    },
+}
+)
 
+const Note = model('Note', noteSchema)
 
-module.exports = noteSchema; 
+module.exports = Note; 

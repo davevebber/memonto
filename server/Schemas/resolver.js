@@ -1,4 +1,4 @@
-const { User } = require('../models'); 
+const { User, Notebook, Note } = require('../models'); 
 const { signToken } = require('../utils/auth'); 
 const { AuthenticationError } = require('apollo-server-express'); 
 
@@ -13,7 +13,15 @@ const resolvers = {
             }
 
             throw new AuthenticationError("You are not logged in"); 
-        }
+        }, 
+    user: async (parent, {username}) => {
+        return User.findOne({username})
+        .select('-__v -password')
+    }, 
+    notebook: async (parent, {username}) =>{
+        const params = username ? {username} : {}; 
+        return Notebook.find(params)
+    }, 
     }, 
 
     Mutation: {
@@ -40,10 +48,11 @@ const resolvers = {
             const token = signToken(user); 
             return { token, user }; 
         }, 
+
         //add a new notebook 
         newNotebook: async(parent, args, context) => {
             if (context.user){
-                const notebook = await Notebook.create({...args}
+                const notebook = await Notebook.create({...args, username: context.user.username}
                 )
                 await User.findByIdAndUpdate(
                     {_id: context.user._id}, 
@@ -75,7 +84,7 @@ const resolvers = {
         //add a note into a notebook 
         newNote: async (parent, args, context) => {
             if (context.notebook){
-                const note = await Note.create({...args}
+                const updatedNotebook = await Note.create({...args, username: context.user.username}
                 )
                 await Notebook.findByIdAndUpdate(
                     {_id: context.notebook._id}, 
