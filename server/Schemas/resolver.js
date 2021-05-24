@@ -82,21 +82,34 @@ const resolvers = {
         }, 
 
         //add a note into a notebook 
-        newNote: async (parent, args, context) => {
-            if (context.notebook){
-                const updatedNotebook = await Note.create({...args, username: context.user.username}
-                )
-                await Notebook.findByIdAndUpdate(
-                    {_id: context.notebook._id}, 
-                    {$addToSet:{savedNotes: note._id}}, 
-                    {new: true}
-                )
+        // newNote: async (parent, {title, content}, context) => {
+        //     if (context.user){
+        //         const updatedNotebook = await Notebook.findByIdAndUpdate(
+        //             {_id: notebookId}, 
+        //             {$addToSet:{savedNotes: {title, content, username : context.user.username}}}, 
+        //             {new: true, 
+        //             runValidators: true}
+        //         )
 
-                return note; 
+        //         return updatedNotebook; 
+        //     }
+
+        //     throw new AuthenticationError('Please login'); 
+        // }, 
+
+        //add a new notebook 
+        newNote: async(parent, {notebookId, title, content}, context) => {
+            if(context.user){
+                const updatedNotebook = await Notebook.findByIdAndUpdate(
+                    {_id: notebookId}, 
+                    {$push: {savedNotes: {title, content, username: context.user.username}}}, 
+                    {new: true, runValidators: true}
+                )
+                return updatedNotebook
             }
-
             throw new AuthenticationError('Please login'); 
         }, 
+
 
         //remove a note inside a notebook 
         removeNote: async(parent, {notebookId}, context) => {

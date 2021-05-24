@@ -12,8 +12,8 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): Auth
         newNotebook(title: String!): Notebook
         removeNotebook(title: String!): Notebook
-        newNote(notebookId: ID!, title: String, context: String): Notebook
-        removeNote(title: String!, context: String!): Notebook
+        newNote(notebookId: ID, title: String, content: String): Notebook
+        removeNote(title: String!, content: String!): Notebook
     }
 
     type User{
