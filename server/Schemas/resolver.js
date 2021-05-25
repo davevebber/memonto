@@ -97,7 +97,7 @@ const resolvers = {
         //     throw new AuthenticationError('Please login'); 
         // }, 
 
-        //add a new notebook 
+        //add a new note into notebook 
         newNote: async(parent, {notebookId, title, content}, context) => {
             if(context.user){
                 const updatedNotebook = await Notebook.findByIdAndUpdate(
@@ -110,6 +110,27 @@ const resolvers = {
             throw new AuthenticationError('Please login'); 
         }, 
 
+
+        //updating a note
+        updatedNote: async (parent, {notebookId, noteId, title, content}, context) => {
+            if(context.user){
+                const updatedNote = await Notebook.findOne(
+                   {_id: notebookId}
+                )
+                console.log(updatedNote)
+                let update = updatedNote.savedNotes.find((note)=> {
+                console.log(note._id, noteId)
+                return note._id == noteId
+                })
+                console.log(update); 
+                update.title = title 
+                update.content = content
+                const updated = await updatedNote.save(); 
+
+                return updated
+            }
+            throw new AuthenticationError('Please login')
+        },
 
         //remove a note inside a notebook 
         removeNote: async(parent, {notebookId}, context) => {
