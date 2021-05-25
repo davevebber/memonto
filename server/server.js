@@ -16,7 +16,6 @@ app.use(express.json());
 const server = new ApolloServer({
   typeDefs,
   resolvers, 
-  playground: true,
   context: authMiddleware
 });
 

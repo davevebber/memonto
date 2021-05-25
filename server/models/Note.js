@@ -14,7 +14,12 @@ const noteSchema = new Schema({
       type: Date, 
       default: Date.now
   }
-})
-
+}, 
+{
+    toJson: {
+        getters: true
+    },
+}
+); 
 
 module.exports = noteSchema; 

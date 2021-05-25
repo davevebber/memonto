@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose'); 
 const bcrypt = require('bcrypt'); 
 
-//import notebook schema 
+// import notebook schema 
 // const notebookSchema = require('./Notebook'); 
 
 //create user Schema 
@@ -23,9 +23,13 @@ const userSchema = new Schema(
             type: String, 
             required: true, 
         }, 
-        //connect to note schema as an array of data 
-            // savedNotebook: [notebookSchema]
-    }, 
+        // connect to note schema as an array of data 
+            savedNotebook: [
+                {
+                    type: Schema.Types.ObjectId, 
+                    ref: 'Notebook'}
+            ],
+        },
         {
             toJson: {
                 virtuals: true
@@ -56,4 +60,4 @@ userSchema.virtual('notebookCount').get(function(){
 
 const User = model('User', userSchema); 
 
-module.export = User; 
+module.exports = User; 
