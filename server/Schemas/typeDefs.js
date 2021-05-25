@@ -14,7 +14,7 @@ const typeDefs = gql`
         removeNotebook(notebookId: ID!): Notebook
         newNote(notebookId: ID, title: String, content: String): Notebook
         updatedNote(notebookId: ID, noteId: ID, title: String, content: String): Notebook
-        removeNote(noteId: ID): Notebook
+        removeNote(notebookId: ID, noteId: ID): Notebook
     }
 
     type User{

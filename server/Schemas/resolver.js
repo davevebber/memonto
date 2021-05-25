@@ -141,14 +141,14 @@ const resolvers = {
 
         //remove a note inside a notebook 
         removeNote: async(parent, {notebookId, noteId}, context) => {
-            if (context.notebook){
-                const updatedNotebook = await User.findOneAndUpdate(
-                    {_id: context.notebook._id}, 
-                    {$pull:{savedNotes : {noteId: noteId}}}, 
+            if (context.user){
+                const deleteNotebook = await Notebook.findOneAndUpdate(
+                    {_id: notebookId}, 
+                    {$pull: {savedNotes: {noteId: noteId}}}, 
                     {new: true}
                 )
 
-                return updatedNotebook; 
+                return deleteNotebook; 
             }
 
             throw new AuthenticationError('Please login'); 
