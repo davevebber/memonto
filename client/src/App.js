@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Nav from './components/Nav';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello World</h1>
-      </header>
+    <div>
+      <Nav></Nav>
     </div>
   );
 }

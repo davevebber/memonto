@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/react-components": "^4.0.0-beta.2",
     "if-env": "^1.0.4"
   },
   "devDependencies": {
