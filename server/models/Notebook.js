@@ -6,10 +6,10 @@ const noteSchema = require('./Note');
 
 //create notebook schema
 const notebookSchema = new Schema({
-    username: {
-        type: String, 
-        required: true
-    }, 
+    // username: {
+    //     type: String, 
+    //     required: true
+    // }, 
 
     title: {
         type: String,
