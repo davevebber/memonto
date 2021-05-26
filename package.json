@@ -19,7 +19,8 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/react-components": "^4.0.0-beta.2",
-    "if-env": "^1.0.4"
+    "if-env": "^1.0.4",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "concurrently": "^5.2.0"
