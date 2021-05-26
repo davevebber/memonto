@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { capitalizeFirstLetter } from '../../utils/helpers';
+import {Link} from 'react-router-dom'
+import './nav.css';
 
 function Nav(props) {
     const {
@@ -12,15 +14,25 @@ function Nav(props) {
 
     return (
         <header className='flex-row px-1'>
-            <h2>
-                <a href='/'> Your Notes</a>
-            </h2>
+            <h1 className='logo'>
+                <Link to ='/'>Memonto</Link>
+            </h1>
             <nav>
-                <ul className='flex-row'>
+                <ul className='nav-item'>
                     <li>
-                        <a href='Notebook'>
-                            Notebook
-                      </a>
+                        <Link to ='/notebook'>
+                            Notebooks
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to ='/login'>
+                            Login
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to ='/signup'>
+                            Sign-up
+                        </Link>
                     </li>
                     {/* <li className={`mx-2 ${SubjectSelected && 'navActive'}`}>
             <span onClick={() => setSubjectSelected(true)}></span>
