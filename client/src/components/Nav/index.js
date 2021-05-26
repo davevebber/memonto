@@ -25,23 +25,22 @@ function Nav(props) {
                     {/* <li className={`mx-2 ${SubjectSelected && 'navActive'}`}>
             <span onClick={() => setSubjectSelected(true)}></span>
           </li> */}
-          {subjects.map((subject) => (
-            <li
-              className={`mx-1 ${
-                currentSubject.name === subject.name && !SubjectSelected && 'navActive'
-                }`}
-              key={subject.name}
-            >
-              <span
-                onClick={() => {
-                  setCurrentSubject();
-                  setSubjectSelected(false);
-                }}
-              >
-                {capitalizeFirstLetter(subject.name)}
-              </span>
-            </li>
-          ))}
+                    {subjects.map((subject) => (
+                        <li
+                            className={`mx-1 ${currentSubject.name === subject.name && !SubjectSelected && 'navActive'
+                                }`}
+                            key={subject.name}
+                        >
+                            <span
+                                onClick={() => {
+                                    setCurrentSubject(subject);
+                                    setSubjectSelected(false);
+                                }}
+                            >
+                                {/* {capitalizeFirstLetter(subject.name)} */}
+                            </span>
+                        </li>
+                    ))}
                 </ul>
             </nav>
         </header>
