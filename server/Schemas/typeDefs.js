@@ -11,9 +11,10 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
         newNotebook(title: String!): Notebook
-        removeNotebook(title: String!): Notebook
-        newNote(notebookId: ID!, title: String, context: String): Notebook
-        removeNote(title: String!, context: String!): Notebook
+        removeNotebook(notebookId: ID!): Notebook
+        newNote(notebookId: ID, title: String, content: String): Notebook
+        updatedNote(notebookId: ID, noteId: ID, title: String, content: String): Notebook
+        removeNote(notebookId: ID, noteId: ID): Notebook
     }
 
     type User{
@@ -27,7 +28,6 @@ const typeDefs = gql`
     type Notebook{
         _id: ID
         title: String
-        username: String
         savedNotes: [Note]
     }
 

@@ -52,19 +52,41 @@ const resolvers = {
         //add a new notebook 
         newNotebook: async(parent, args, context) => {
             if (context.user){
-                const notebook = await Notebook.create({...args, username: context.user.username}
+                const notebook = await Notebook.create({...args}
                 )
-                await User.findByIdAndUpdate(
+                const updatedUser = await User.findByIdAndUpdate(
+                    
                     {_id: context.user._id}, 
                     {$addToSet:{savedNotebook: notebook._id}}, 
                     {new: true}
                 )
-
+                    console.log(updatedUser, notebook)
                 return notebook; 
             }
 
             throw new AuthenticationError('Please login'); 
         }, 
+
+        // newNotebook: async(parent, {title}, context) => {
+        //     if(context.user){
+        //         const updatedUser = await User.findOneAndUpdate(
+        //             {_id: context.user._id}, 
+        //             {$push: {savedNotebook: {title}}}, 
+        //             //{new: true, runValidators: true},
+
+        //             function (error, success){
+        //                 if(error) {
+        //                     console.log(error); 
+        //                 } else {
+        //                     console.log(success); 
+        //                 }
+        //             }
+        //         )
+        //         //console.log(updatedUser)
+        //         return updatedUser
+        //     }
+        //     throw new AuthenticationError('Please login'); 
+        // }, 
 
         //delete a notebook 
         removeNotebook: async(parent, {notebookId}, context) => {
@@ -80,34 +102,53 @@ const resolvers = {
 
             throw new AuthenticationError('Please login'); 
         }, 
+ 
 
-        //add a note into a notebook 
-        newNote: async (parent, args, context) => {
-            if (context.notebook){
-                const updatedNotebook = await Note.create({...args, username: context.user.username}
+        //add a new note into notebook 
+        newNote: async(parent, {notebookId, title, content}, context) => {
+            if(context.user){
+                const updatedNotebook = await Notebook.findByIdAndUpdate(
+                    {_id: notebookId}, 
+                    {$push: {savedNotes: {title, content, username: context.user.username}}}, 
+                    {new: true, runValidators: true}
                 )
-                await Notebook.findByIdAndUpdate(
-                    {_id: context.notebook._id}, 
-                    {$addToSet:{savedNotes: note._id}}, 
-                    {new: true}
-                )
-
-                return note; 
+                return updatedNotebook
             }
-
             throw new AuthenticationError('Please login'); 
         }, 
 
+
+        //updating a note
+        updatedNote: async (parent, {notebookId, noteId, title, content}, context) => {
+            if(context.user){
+                const updatedNote = await Notebook.findOne(
+                   {_id: notebookId}
+                )
+                console.log(updatedNote)
+                let update = updatedNote.savedNotes.find((note)=> {
+                console.log(note._id, noteId)
+                return note._id == noteId
+                })
+                console.log(update); 
+                update.title = title 
+                update.content = content
+                const updated = await updatedNote.save(); 
+
+                return updated
+            }
+            throw new AuthenticationError('Please login')
+        },
+
         //remove a note inside a notebook 
-        removeNote: async(parent, {notebookId}, context) => {
-            if (context.notebook){
-                const updatedNotebook = await User.findOneAndUpdate(
-                    {_id: context.notebook._id}, 
-                    {$pull:{savedNotes : {notebookId: notebookId}}}, 
+        removeNote: async(parent, {notebookId, noteId}, context) => {
+            if (context.user){
+                const deleteNotebook = await Notebook.findOneAndUpdate(
+                    {_id: notebookId}, 
+                    {$pull: {savedNotes: {noteId: noteId}}}, 
                     {new: true}
                 )
 
-                return updatedNotebook; 
+                return deleteNotebook; 
             }
 
             throw new AuthenticationError('Please login'); 

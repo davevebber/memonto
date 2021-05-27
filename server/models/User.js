@@ -24,10 +24,9 @@ const userSchema = new Schema(
             required: true, 
         }, 
         // connect to note schema as an array of data 
-            savedNotebook: [
-                {
-                    type: Schema.Types.ObjectId, 
-                    ref: 'Notebook'}
+            savedNotebook: [ 
+               {type: Schema.Types.ObjectId, 
+                ref: 'Notebook'}
             ],
         },
         {

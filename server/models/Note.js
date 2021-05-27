@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose'); 
+const { Schema } = require('mongoose'); 
 
 //create note schema to reference into user 
 const noteSchema = new Schema({
@@ -20,8 +20,8 @@ const noteSchema = new Schema({
         getters: true
     },
 }
-)
+); 
 
-const Note = model('Note', noteSchema)
+//const Note = model('Note', noteSchema)
 
-module.exports = Note; 
+module.exports = noteSchema; 
