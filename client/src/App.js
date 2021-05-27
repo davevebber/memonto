@@ -3,7 +3,6 @@ import uuid from "react-uuid";
 import "./App.css";
 import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
-import React, { useState } from 'react';
 import Nav from './components/Nav';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
