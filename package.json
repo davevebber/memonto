@@ -18,17 +18,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
     "@chakra-ui/react": "^1.6.2",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "framer-motion": "^4.1.17",
-    "if-env": "^1.0.4"
-=======
-    "@apollo/react-components": "^4.0.0-beta.2",
     "if-env": "^1.0.4",
+    "@apollo/react-components": "^4.0.0-beta.2",
     "react-router-dom": "^5.2.0"
->>>>>>> 6e8875fb901ab52b6dca83cd7de196a69cf4a609
   },
   "devDependencies": {
     "concurrently": "^5.2.0"
