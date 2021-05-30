@@ -42,6 +42,10 @@ const typeDefs = gql`
         token: ID!
         user: User
     }
+
+    type Checkout {
+        session: ID
+      }
 `
 //not sure if it should be type note or input note 
 
