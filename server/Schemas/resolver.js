@@ -1,6 +1,8 @@
 const { User, Notebook, Note } = require('../models'); 
 const { signToken } = require('../utils/auth'); 
 const { AuthenticationError } = require('apollo-server-express'); 
+const Order = require('../models/Order');
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
     Query: {
@@ -22,6 +24,21 @@ const resolvers = {
         const params = username ? {username} : {}; 
         return Notebook.find(params)
     }, 
+    order: async(parent, {_id}, context)=>{
+        if (context.user){
+            const user = await (await User.findById(context.user._id))
+            return user.order.id(_id); 
+        }
+    }, 
+    checkout: async (parent, args, context) => {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            mode: 'payment', 
+            success_url:`${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${url}/`
+        })
+        return { session: session.id }; 
+    }
     }, 
 
     Mutation: {
@@ -139,20 +156,46 @@ const resolvers = {
             throw new AuthenticationError('Please login')
         },
 
-        //remove a note inside a notebook 
+        //remove a note inside a not ebook 
         removeNote: async(parent, {notebookId, noteId}, context) => {
-            if (context.user){
-                const deleteNotebook = await Notebook.findOneAndUpdate(
-                    {_id: notebookId}, 
-                    {$pull: {savedNotes: {noteId: noteId}}}, 
-                    {new: true}
+            // if (context.user){
+            //     const deleteNote = await Notebook.findOneAndUpdate(
+            //         {_id: context.user._id}, 
+            //         {$pull: {savedNotes: {noteId: noteId}}}, 
+            //         {new: true}
+            //     )
+            //         return deleteNote
+
+            if(context.user){
+                const updatedNote = await Notebook.findOne(
+                   {_id: notebookId}
                 )
+                console.log(updatedNote)
+                let update = updatedNote.savedNotes.find((note)=> {
+                console.log(note._id, noteId)
+                return note._id == noteId
+                })
+                // console.log(update); 
+                // update.title = title 
+                // update.content = content
+                const updated = await updatedNote.delete(); 
 
-                return deleteNotebook; 
+                return updated
+
             }
-
             throw new AuthenticationError('Please login'); 
         }, 
+
+        addOrder: async (parent, {id}, context) => {
+            if (context.user) {
+                const order = new Order({id}); 
+                await User.findByIdAndUpdate(context.user._id),
+                {$push: orders}
+
+                return order
+            }
+            throw new AuthenticationError ('Please login')
+        }
     }
 }
 

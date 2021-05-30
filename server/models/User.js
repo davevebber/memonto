@@ -1,8 +1,6 @@
 const { Schema, model } = require('mongoose'); 
 const bcrypt = require('bcrypt'); 
-
-// import notebook schema 
-// const notebookSchema = require('./Notebook'); 
+const Order = require('./Order'); 
 
 //create user Schema 
 const userSchema = new Schema(
@@ -28,7 +26,10 @@ const userSchema = new Schema(
                {type: Schema.Types.ObjectId, 
                 ref: 'Notebook'}
             ],
+  
+            orders: [Order.schema],
         },
+
         {
             toJson: {
                 virtuals: true

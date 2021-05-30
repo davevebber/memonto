@@ -5,6 +5,8 @@ const typeDefs = gql`
         me: User
         user(username:String!): User
         notebook(username: String!): [Notebook]
+        order(_id: ID): Order
+        checkout(order: ID): Checkout
     }
 
     type Mutation {
@@ -15,6 +17,7 @@ const typeDefs = gql`
         newNote(notebookId: ID, title: String, content: String): Notebook
         updatedNote(notebookId: ID, noteId: ID, title: String, content: String): Notebook
         removeNote(notebookId: ID, noteId: ID): Notebook
+        addOrder(order: ID): Order
     }
 
     type User{
@@ -45,8 +48,13 @@ const typeDefs = gql`
 
     type Checkout {
         session: ID
-      }
+    }
+
+    type Order {
+        _id: ID
+        amount: Float
+    }
 `
-//not sure if it should be type note or input note 
+
 
 module.exports = typeDefs; 
