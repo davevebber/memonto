@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
-import { capitalizeFirstLetter } from '../../utils/helpers';
+import React from 'react';
+// import { capitalizeFirstLetter } from '../../utils/helpers';
 import {Link} from 'react-router-dom'
 import './nav.css';
+// import Login from '../../pages/Login'
+// import Signup from '../../pages/Signup'
 
 function Nav(props) {
     const {
@@ -25,18 +27,18 @@ function Nav(props) {
                         </Link>
                     </li>
                     <li>
-                        <Link to ='/login'>
-                            Login
+                    <Link to ='/Signup'>
+                            Signup
                         </Link>
                     </li>
                     <li>
-                        <Link to ='/signup'>
-                            Sign-up
+                    <Link to ='/Login'>
+                            Login
                         </Link>
                     </li>
-                    {/* <li className={`mx-2 ${SubjectSelected && 'navActive'}`}>
+                    <li className={`mx-2 ${SubjectSelected && 'navActive'}`}>
             <span onClick={() => setSubjectSelected(true)}></span>
-          </li> */}
+          </li>
                     {subjects.map((subject) => (
                         <li
                             className={`mx-1 ${currentSubject.name === subject.name && !SubjectSelected && 'navActive'
@@ -49,7 +51,7 @@ function Nav(props) {
                                     setSubjectSelected(false);
                                 }}
                             >
-                                {/* {capitalizeFirstLetter(subject.name)} */}
+                           
                             </span>
                         </li>
                     ))}

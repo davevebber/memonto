@@ -5,7 +5,17 @@ import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
 import Nav from './components/Nav';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+
+
+const client = new ApolloClient({
+  uri: '/graphql'
+});
+
 
 function App() {
   const [notes, setNotes] = useState(
@@ -50,10 +60,15 @@ function App() {
   };
 
   return (
+    <ApolloProvider client={client}>
     <Router>
 
       <Nav />
 
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/signup" component={Signup} />
+
+      
       <div className="App">
         <Sidebar
           notes={notes}
@@ -62,12 +77,14 @@ function App() {
           activeNote={activeNote}
           setActiveNote={setActiveNote}
         />
+
         <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
       </div>
 
 
 
     </Router>
+    </ApolloProvider>
   );
 }
 

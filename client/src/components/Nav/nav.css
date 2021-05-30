@@ -27,7 +27,7 @@
 }
 
 .logo {
-color: rgb(202, 202, 202);
+color: rgb(0, 0, 0);
 cursor: pointer;
 font-size: 30px;
 }
@@ -36,7 +36,7 @@ li {
     font-family: sans-serif;
     font-weight: 500;
     font-size: 20px;
-    color: #f1eded;
+    color: #000000;
     text-decoration: none;
 }
 
