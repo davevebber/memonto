@@ -6,11 +6,10 @@
 2. [Description](#description)
 3. [Created-With](#created-with)
 4. [Usage-Information](#usage)
-5. [Test-Instructions](#test-instructions)
-6. [Installation](#install)
-7. [Deployed-Link](#deployed-link)
-8. [Screenshots](#screenshots)
-9. [Questions](#questions)
+5. [Installation](#install)
+6. [Deployed-Link](#deployed-link)
+7. [Screenshots](#screenshots)
+8. [Questions](#questions)
 
 ## Created By <a name="created-by"></a>
 Albert Rodriguez
@@ -23,7 +22,7 @@ Ellen
 https://github.com/miyun94
 
 ## Description <a name="description"></a>
-Note taking app to easily keep track of different classes/projects/etc
+Memonto is an application that allows the user to create, store, and access notes both online and offline. Memonto allows the user to categorize their notes into various different categories as needed for a cleaner, more organized look. 
 
 ## Created With <a name="created-with"></a>
 MongoDB
@@ -32,13 +31,12 @@ React.js
 Node
 
 ## Usage Information <a name="usage"></a>
-n/a
-
-## Test Instructions <a name="test-instructions"></a>
-n/a
+This app was designed based off the working person’s needs. By creating an application that allows the user to access their notes whenever they are, it minimizes the need to carry about larger electronics or USBs. Since it works both online and offline, the user does not need to worry about internet connectivity, which increases the convenience of the product. 
 
 ## Installation <a name="install"></a>
-To install the needed packages run "npm install" from the root of the project folder.
+Git clone the repository to your local machine.
+</br>
+To install the needed packages run "npm install" from the root of the project folder. Once all the packages are downloaded run the application to get it onto your local machine. Or you can find the app below in the deployed link section.
 
 ## Deployed Link <a name="deployed-link"></a>
 https://github.com/davevebber/memonto
