@@ -42,7 +42,8 @@ To install the needed packages run "npm install" from the root of the project fo
 https://github.com/davevebber/memonto
 
 ## Screenshots <a name="screenshots"></a>
-n/a
+![image](https://user-images.githubusercontent.com/74436613/120153290-63047a80-c1a3-11eb-8432-e733e33399c4.png)
+
 
 ## Questions <a name="questions"></a>
 If you have any other questions please contact us at:
